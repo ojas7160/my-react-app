@@ -1,5 +1,5 @@
 import React, {Component} from 'react'; // this React is responsible for render all the code to HTML through render method
-import './App.css'; // we can import css file in js file with the help of webpack
+import styles from './App.css'; // we can import css file in js file with the help of webpack
 import Person from './Person/Person';
 // import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
@@ -120,7 +120,7 @@ class App extends Component { // this component responsible that some html code 
       
       // we have to write all code in one root element i.e., <div className="App"></div>, it doesn't any code outside the root parent element and gives us error, its a restriction of jsx
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
-      <StyleRoot>
+      // <StyleRoot>
         <div className="App"> 
           <h1 className={classes}>Hi, Im react</h1>
           <button style={style} onClick={this.togglePersonHandler}>toogle person</button>
@@ -143,7 +143,7 @@ class App extends Component { // this component responsible that some html code 
           }
           {persons}
         </div>
-      </StyleRoot>
+      // </StyleRoot>
       // this click is just a click named property passing the switchNameHandler to person component dynamically like name and age
       // this is a standard convention of using capitalize form in react beacuse react treats capitalized form elements as custom elements like <Person /> or <Div> and won't interfere in it and normal <div> starts with small letter are being treated as native html elements in react jsx syntax
     )
