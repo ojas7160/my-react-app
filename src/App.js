@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; // this React is responsible for render all the code to HTML through render method
 import './App.css'; // we can import css file in js file with the help of webpack
 import Person from './Person/Person';
+// import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
 // npm start, starts th react server and it runs the react-script start behind the scenes which are written in package.json for all commands
 class App extends Component { // this component responsible that some html code to be rendered to the dom and to create a component
@@ -61,11 +62,15 @@ class App extends Component { // this component responsible that some html code 
   // state is managed inside the component whereas props managed from outside the component like we define name and age in this component and use in another component using props and also state can only be defined in those component which extends Component.  
   render() { 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
+      // ':hover': {
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     }
 
     //this is the another way of clean show or hide.
@@ -92,6 +97,22 @@ class App extends Component { // this component responsible that some html code 
           <Person name={this.state.persons[2].name} age={this.state.persons[2].age} changed={this.nameChangeHandler}>Hobbies: Swimming</Person> */}
         </div>
       );
+      style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
+    }
+
+    let classes = ['red', 'bold'].join(' ')
+
+    let classesNew = []
+    if(this.state.persons.length <= 2){
+      classesNew.push('red');
+    }
+
+    if(this.state.persons.length <= 1){
+      classesNew.push('bold');
     }
     return ( // this whole code looks like js but it is jsx
       // we are not using div element as real html tags React is converting them behind the scenes
@@ -99,29 +120,30 @@ class App extends Component { // this component responsible that some html code 
       
       // we have to write all code in one root element i.e., <div className="App"></div>, it doesn't any code outside the root parent element and gives us error, its a restriction of jsx
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
-      <div className="App"> 
-        <h1>Hi, Im react</h1>
-        <button style={style} onClick={this.togglePersonHandler}>toogle person</button>
-        <button style={style} onClick={() => this.switchNameHandler('ojaswi wadhwa')}>Switch state</button>
-        {/* {
-          this.state.showPersons ? 
-          <div>
-            <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-            <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'ojas!')}/>
-            <Person name={this.state.persons[2].name} age={this.state.persons[2].age} changed={this.nameChangeHandler}>Hobbies: Swimming</Person>
-          </div> 
-          : null
-        } */}
-        {
-          // this ternary operator helps in show or hide any element in react and is covered in single brace for dynamic show hide
-        }
+      <StyleRoot>
+        <div className="App"> 
+          <h1 className={classes}>Hi, Im react</h1>
+          <button style={style} onClick={this.togglePersonHandler}>toogle person</button>
+          <button className={classesNew.join(' ')} onClick={() => this.switchNameHandler('ojaswi wadhwa')}>Switch state</button>
+          {/* {
+            this.state.showPersons ? 
+            <div>
+              <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+              <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'ojas!')}/>
+              <Person name={this.state.persons[2].name} age={this.state.persons[2].age} changed={this.nameChangeHandler}>Hobbies: Swimming</Person>
+            </div> 
+            : null
+          } */}
+          {
+            // this ternary operator helps in show or hide any element in react and is covered in single brace for dynamic show hide
+          }
 
-        {
-          // or
-        }
-        {persons}
-      </div>
-      
+          {
+            // or
+          }
+          {persons}
+        </div>
+      </StyleRoot>
       // this click is just a click named property passing the switchNameHandler to person component dynamically like name and age
       // this is a standard convention of using capitalize form in react beacuse react treats capitalized form elements as custom elements like <Person /> or <Div> and won't interfere in it and normal <div> starts with small letter are being treated as native html elements in react jsx syntax
     )
@@ -131,5 +153,6 @@ class App extends Component { // this component responsible that some html code 
     // React.createElement(element, className(optional), text inside the element) and if you want nested element inside any element then create another rect element inside it like above
   }
 }
-
+// Radium is for styles and with radium we can simply use psuedo selector or any selector in jsx for styling and also helps using media queries
+// export default Radium(App);
 export default App;
