@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; // this React is responsible for render all the code to HTML through render method
-import styles from './App.css'; // we can import css file in js file with the help of webpack
+import './App.css'; // we can import css file in js file with the help of webpack
 import Person from './Person/Person';
-// import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
+import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
 // npm start, starts th react server and it runs the react-script start behind the scenes which are written in package.json for all commands
 class App extends Component { // this component responsible that some html code to be rendered to the dom and to create a component
@@ -66,11 +66,11 @@ class App extends Component { // this component responsible that some html code 
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
-      // ':hover': {
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black'
-      // }
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
 
     //this is the another way of clean show or hide.
@@ -79,7 +79,7 @@ class App extends Component { // this component responsible that some html code 
       persons = (
         <div>
           {
-            // for dynamic iteration on array in react unlike we do in ng-repeat/*ngFor in angular and there should be key attribute when we iterate via map function in react, its very important because react make a virtual dom(the previous dom) and compare between both w.r.t key that which element change and which didn't and key must be unique.
+            // for dynamic iteration on array in react unlike we do in ng-repeat/*ngFor in angular and there should be key attribute when we iterate via map function in react, its very important because react make a virtual dom(the previous dom) and compare between both w.r.t key that which element change and which didn't and key must be unique and key has to be on the outer element or parent element.
           }
           {this.state.persons.map((person, index) => {
             return (
@@ -98,10 +98,10 @@ class App extends Component { // this component responsible that some html code 
         </div>
       );
       style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // }
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
 
     let classes = ['red', 'bold'].join(' ')
@@ -120,7 +120,7 @@ class App extends Component { // this component responsible that some html code 
       
       // we have to write all code in one root element i.e., <div className="App"></div>, it doesn't any code outside the root parent element and gives us error, its a restriction of jsx
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
-      // <StyleRoot>
+      <StyleRoot>
         <div className="App"> 
           <h1 className={classes}>Hi, Im react</h1>
           <button style={style} onClick={this.togglePersonHandler}>toogle person</button>
@@ -143,7 +143,7 @@ class App extends Component { // this component responsible that some html code 
           }
           {persons}
         </div>
-      // </StyleRoot>
+      </StyleRoot>
       // this click is just a click named property passing the switchNameHandler to person component dynamically like name and age
       // this is a standard convention of using capitalize form in react beacuse react treats capitalized form elements as custom elements like <Person /> or <Div> and won't interfere in it and normal <div> starts with small letter are being treated as native html elements in react jsx syntax
     )
@@ -154,5 +154,5 @@ class App extends Component { // this component responsible that some html code 
   }
 }
 // Radium is for styles and with radium we can simply use psuedo selector or any selector in jsx for styling and also helps using media queries
-// export default Radium(App);
-export default App;
+export default Radium(App);
+// export default App;
