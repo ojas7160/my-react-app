@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; // this React is responsible for render all the code to HTML through render method
 import './App.css'; // we can import css file in js file with the help of webpack
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
 // npm start, starts th react server and it runs the react-script start behind the scenes which are written in package.json for all commands
@@ -61,17 +62,17 @@ class App extends Component { // this component responsible that some html code 
   }
   // state is managed inside the component whereas props managed from outside the component like we define name and age in this component and use in another component using props and also state can only be defined in those component which extends Component.  
   render() { 
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    }
+    // const style = {
+    //   backgroundColor: 'green',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // }
 
     //this is the another way of clean show or hide.
     let persons = null;
@@ -81,7 +82,12 @@ class App extends Component { // this component responsible that some html code 
           {
             // for dynamic iteration on array in react unlike we do in ng-repeat/*ngFor in angular and there should be key attribute when we iterate via map function in react, its very important because react make a virtual dom(the previous dom) and compare between both w.r.t key that which element change and which didn't and key must be unique and key has to be on the outer element or parent element.
           }
-          {this.state.persons.map((person, index) => {
+          <Persons 
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler}
+            persons={this.state.persons}
+          />
+          {/* {this.state.persons.map((person, index) => {
             return (
               <Person
                 name={person.name}
@@ -91,29 +97,29 @@ class App extends Component { // this component responsible that some html code 
                 changed={(event) => this.nameChangeHandler(event, person.id)}
               />
             )
-          })}
+          })} */}
           {/* <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
           <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'ojas!')}/>
           <Person name={this.state.persons[2].name} age={this.state.persons[2].age} changed={this.nameChangeHandler}>Hobbies: Swimming</Person> */}
         </div>
       );
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
     }
 
-    let classes = ['red', 'bold'].join(' ')
+    // let classes = ['red', 'bold'].join(' ')
 
-    let classesNew = []
-    if(this.state.persons.length <= 2){
-      classesNew.push('red');
-    }
+    // let classesNew = []
+    // if(this.state.persons.length <= 2){
+    //   classesNew.push('red');
+    // }
 
-    if(this.state.persons.length <= 1){
-      classesNew.push('bold');
-    }
+    // if(this.state.persons.length <= 1){
+    //   classesNew.push('bold');
+    // }
     return ( // this whole code looks like js but it is jsx
       // we are not using div element as real html tags React is converting them behind the scenes
       // this below code looks like html but it really is jsx that's why it is bind in parenthesis of return statement
@@ -122,9 +128,7 @@ class App extends Component { // this component responsible that some html code 
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
       <StyleRoot>
         <div className="App"> 
-          <h1 className={classes}>Hi, Im react</h1>
-          <button style={style} onClick={this.togglePersonHandler}>toogle person</button>
-          <button className={classesNew.join(' ')} onClick={() => this.switchNameHandler('ojaswi wadhwa')}>Switch state</button>
+          <Cockpit clicked={this.togglePersonHandler} switch={this.switchNameHandler} persons={this.state.persons} showPersons={this.state.showPersons}/>
           {/* {
             this.state.showPersons ? 
             <div>
