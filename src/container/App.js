@@ -1,18 +1,52 @@
-import React, {Component} from 'react'; // this React is responsible for render all the code to HTML through render method
+import React, {PureComponent} from 'react'; // this React is responsible for render all the code to HTML through render method
 import './App.css'; // we can import css file in js file with the help of webpack
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
 // npm start, starts th react server and it runs the react-script start behind the scenes which are written in package.json for all commands
-class App extends Component { // this component responsible that some html code to be rendered to the dom and to create a component
-  state = {
-    persons: [
-      {id: 1, name: 'ojas', age: 28},
-      {id: 2, name: 'wadhwa', age: 27},
-      {id: 3, name: 'ojaswi', age: 26}
-    ] 
+class App extends PureComponent { // this component responsible that some html code to be rendered to the dom and to create a component
+  
+  constructor(props){
+		super(props) // must be there in constructor
+    console.log('constructor')
+    state = {
+      persons: [
+        {id: 1, name: 'ojas', age: 28},
+        {id: 2, name: 'wadhwa', age: 27},
+        {id: 3, name: 'ojaswi', age: 26}
+      ] 
+  
+    }
+	}
+	// componentWillMount() -> is being deprecated
+	UNSAFE_componentWillMount() {
+		console.log('will mount')
+	}
 
+	// why did we not make these hooks as propery function because these hooks won't called from dom so we dont bother for this keyword in these hooks so we make them as normal functions
+	componentDidMount() {
+		console.log('did mount');
+	}
+
+	UNSAFE_componentWillReceiveProps(nextProps){
+		console.log('will receive props')
+	}
+
+	// important method
+	// shouldComponentUpdate(nextProps, nextState){
+	// 	console.log('should component update')
+	// 	return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
+	// 	// return true; // return false if you want to cancel whole process and it will stop updating the dom
+	
+	// }
+
+	UNSAFE_componentWillUpdate(nextProps,nextState) {
+		console.log('update component', nextProps)
+	}
+
+	componentDidUpdate(){
+		console.log('did update')
   }
   
   // this below property function syntax is important because we should make this as a property rather a function that it can be use in single brace as a property in button click and secondly if we make this as a normal function then 'this' will refer to the itself function and not to the app component which will be beneficial later.

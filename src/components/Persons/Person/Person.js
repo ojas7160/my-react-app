@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react'; // this PureComponent is same as Component but just in this shouldComponentUpdate() is build in so it auto detects if something update happens
 import './Person.css';
 import Radium from 'radium';
 
 // converting stateless into stateful
 
-class Person extends Component {
+class Person extends PureComponent {
+
 	constructor(props){
 		super(props) // must be there in constructor
 		console.log('constructor')
@@ -14,8 +15,29 @@ class Person extends Component {
 		console.log('will mount')
 	}
 
+	// why did we not make these hooks as propery function because these hooks won't called from dom so we dont bother for this keyword in these hooks so we make them as normal functions
 	componentDidMount() {
 		console.log('did mount');
+	}
+
+	UNSAFE_componentWillReceiveProps(nextProps){
+		console.log('will receive props')
+	}
+
+	// important method, commenting this because now we inherited PureComponent instead Component
+	// shouldComponentUpdate(nextProps, nextState){
+	// 	console.log('should component update')
+	// 	// return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
+	// 	return true; // return false if you want to cancel whole process and it will stop updating the dom
+	
+	// }
+
+	UNSAFE_componentWillUpdate(nextProps,nextState) {
+		console.log('update component', nextProps)
+	}
+
+	componentDidUpdate(){
+		console.log('did update')
 	}
 
 	render () {
