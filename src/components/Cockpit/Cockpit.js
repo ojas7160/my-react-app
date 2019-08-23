@@ -34,6 +34,7 @@ const cockpit = (props) => {
     }
     return (
         <div>
+            <p>{props.appTitle}</p>
             <h1 className={classes}>Hi, Im react</h1>
             <button style={style} onClick={props.clicked}>toogle person</button>
             <button className={classesNew.join(' ')} onClick={() => props.switch('ojaswi wadhwa')}>Switch state</button>

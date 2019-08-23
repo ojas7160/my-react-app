@@ -128,7 +128,7 @@ class App extends Component { // this component responsible that some html code 
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
       <StyleRoot>
         <div className="App"> 
-          <Cockpit clicked={this.togglePersonHandler} switch={this.switchNameHandler} persons={this.state.persons} showPersons={this.state.showPersons}/>
+          <Cockpit appTitle={this.props.title} clicked={this.togglePersonHandler} switch={this.switchNameHandler} persons={this.state.persons} showPersons={this.state.showPersons}/>
           {/* {
             this.state.showPersons ? 
             <div>
