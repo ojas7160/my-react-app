@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'; // this PureComponent is same as Component but just in this shouldComponentUpdate() is build in so it auto detects if something update happens
 import './Person.css';
 import Radium from 'radium';
+import PropTypes from 'prop-types';
 
 // converting stateless into stateful
 
@@ -54,7 +55,14 @@ class Person extends PureComponent {
 				<input type="text" onChange={this.props.changed} value={this.props.name} />
 			</div>
 		)
-  }
+  	}
+}	
+
+Person.PropTypes = { // its just a JS object having key vaue pair for props which we are receiving and the rules for them just like blueprint/interface in angular
+	click: PropTypes.func,
+	name: PropTypes.string,
+	age: PropTypes.number,
+	changed: PropTypes.func
 }
 
 export default Radium(Person);

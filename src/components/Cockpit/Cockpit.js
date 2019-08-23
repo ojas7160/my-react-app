@@ -1,6 +1,8 @@
 import React from 'react';
 import './Cockpit.css';
+import Aux from '../hoc/Aux'; // hoc - higher order component just to wrap the content or components
 import Radium from 'radium';
+import withClass from '../hoc/withClass';
 
 const cockpit = (props) => {
     const style = {
@@ -33,13 +35,13 @@ const cockpit = (props) => {
         }
     }
     return (
-        <div>
+        <Aux>
             <p>{props.appTitle}</p>
             <h1 className={classes}>Hi, Im react</h1>
             <button style={style} onClick={props.clicked}>toogle person</button>
             <button className={classesNew.join(' ')} onClick={() => props.switch('ojaswi wadhwa')}>Switch state</button>
-        </div>
+        </Aux>
     );
 }
 
-export default Radium(cockpit);
+export default Radium(withClass(cockpit, 'Red'));

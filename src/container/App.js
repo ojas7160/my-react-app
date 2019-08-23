@@ -10,13 +10,14 @@ class App extends PureComponent { // this component responsible that some html c
   constructor(props){
 		super(props) // must be there in constructor
     console.log('constructor')
-    state = {
+    this.state = {
       persons: [
         {id: 1, name: 'ojas', age: 28},
         {id: 2, name: 'wadhwa', age: 27},
         {id: 3, name: 'ojaswi', age: 26}
-      ] 
-  
+      ],
+      showPersons: false,
+      toggler: 0
     }
 	}
 	// componentWillMount() -> is being deprecated
@@ -85,7 +86,15 @@ class App extends PureComponent { // this component responsible that some html c
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
+    // this.setState({showPersons: !doesShow, toggler: this.state.toggler + 1});
+
+    // use this below code to update state correctly instead of above code line because using this.state in this.setState is harmful it may point to any different state in the file/app and may lead to inappropriate behaviour so use this below syntax to make sure it only update the prev state
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggler: prevState.toggler + 1
+      }
+    })
   }
 
   deletePersonHandler = (index) => {
@@ -194,3 +203,11 @@ class App extends PureComponent { // this component responsible that some html c
 // Radium is for styles and with radium we can simply use psuedo selector or any selector in jsx for styling and also helps using media queries
 export default Radium(App);
 // export default App;
+
+
+// how react updates the dom - 
+// shouldComponentUpdate() passed -> render()
+// old virtual dom(faster than real dom) -> re-rendered virtual dom // as we know react make a virtual dom to display the contents
+// render() -> doesn't immediately updates the real dom 
+// react compares both the dom and checks if there's any difference in it and if there is then how much difference is there, react will touch only particularly that content not the whole dom or in other words it wont re-render whole dom but only specific things 
+// example if there's differnce in text change in a button then react only updates the text of that button and wont even touch the button
