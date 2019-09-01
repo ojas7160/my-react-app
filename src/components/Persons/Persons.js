@@ -65,6 +65,8 @@ export default persons;
     prepare and structure JSX code
     *update all child components props
 
+ - getSnapShotBeforeUpdate() - juts before something's updated in the Dom
+
  - componentDidUpdate()
     dont update state here
     can cause side effects

@@ -36,10 +36,11 @@ const cockpit = (props) => {
     }
     return (
         <Aux>
-            <p>{props.appTitle}</p>
-            <h1 className={classes}>Hi, Im react</h1>
-            <button style={style} onClick={props.clicked}>toogle person</button>
-            <button className={classesNew.join(' ')} onClick={() => props.switch('ojaswi wadhwa')}>Switch state</button>
+          <p>{props.appTitle}</p>
+          <h1 className={classes}>Hi, Im react</h1>
+          <button style={style} onClick={props.clicked}>toogle person</button>
+          <button className={classesNew.join(' ')} onClick={() => props.switch('ojaswi wadhwa')}>Switch state</button>
+          <button onClick={props.login}>Login</button>
         </Aux>
     );
 }

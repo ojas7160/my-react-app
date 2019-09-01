@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'; // this PureComponent is same as C
 import './Person.css';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
+import { AuthContext } from '../../../container/App';
 
 // converting stateless into stateful
 
@@ -39,6 +40,8 @@ class Person extends PureComponent {
 
 	componentDidUpdate(){
 		console.log('did update')
+		this.inputElement.focus()
+		console.log(this.inputElement)
 	}
 
 	render () {
@@ -49,21 +52,30 @@ class Person extends PureComponent {
 			}
 		}
 		return (
-			<div className="Person" style={style}> 
+			<div className="Person" style={style}>
+				{
+					// auth is just a boolean which we have passed when we create context 
+				} 
+				<AuthContext.Consumer>
+					{auth => auth ? <p>Im Authenticated</p> : null}
+				</AuthContext.Consumer>
 				<p onClick={this.props.click}>Hi I'm {this.props.name} and my age is {this.props.age} years</p>
 				<p>{this.props.children}</p>
-				<input type="text" onChange={this.props.changed} value={this.props.name} />
+				<input type="text" ref={(inp) => {this.inputElement = inp}} onChange={this.props.changed} value={this.props.name} />
+				{// ref is a special element attribute given by react and it can be used only in stateful components, it just mark a reference to this input element
+				}
 			</div>
 		)
   	}
 }	
 
-Person.PropTypes = { // its just a JS object having key vaue pair for props which we are receiving and the rules for them just like blueprint/interface in angular
-	click: PropTypes.func,
-	name: PropTypes.string,
-	age: PropTypes.number,
-	changed: PropTypes.func
-}
+// Person.PropTypes = { 
+// 	// its just a JS object having key value pair for props which we are receiving and the rules for them just like blueprint/interface in angular
+// 	click: PropTypes.func,
+// 	name: PropTypes.string,
+// 	age: PropTypes.number,
+// 	changed: PropTypes.func
+// }
 
 export default Radium(Person);
 

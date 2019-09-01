@@ -4,6 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Radium, { StyleRoot } from 'radium'; // to use media queries with raidum elemet should be wrapped with styleroot element given by radium 
 
+export const AuthContext = React.createContext(false); // its given by react to create a context with default boolean value false.
 // npm start, starts th react server and it runs the react-script start behind the scenes which are written in package.json for all commands
 class App extends PureComponent { // this component responsible that some html code to be rendered to the dom and to create a component
   
@@ -17,7 +18,8 @@ class App extends PureComponent { // this component responsible that some html c
         {id: 3, name: 'ojaswi', age: 26}
       ],
       showPersons: false,
-      toggler: 0
+      toggler: 0,
+      authenticated: false
     }
 	}
 	// componentWillMount() -> is being deprecated
@@ -103,6 +105,10 @@ class App extends PureComponent { // this component responsible that some html c
     persons.splice(index, 1); // splice can mutate the original array
     this.setState({persons: persons});
   }
+
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
   // state is managed inside the component whereas props managed from outside the component like we define name and age in this component and use in another component using props and also state can only be defined in those component which extends Component.  
   render() { 
     // const style = {
@@ -171,7 +177,7 @@ class App extends PureComponent { // this component responsible that some html c
       // in JSX we use click listener with capital c in onClick whereas in normal JS we use small c in onclick  
       <StyleRoot>
         <div className="App"> 
-          <Cockpit appTitle={this.props.title} clicked={this.togglePersonHandler} switch={this.switchNameHandler} persons={this.state.persons} showPersons={this.state.showPersons}/>
+          <Cockpit login={this.loginHandler} appTitle={this.props.title} clicked={this.togglePersonHandler} switch={this.switchNameHandler} persons={this.state.persons} showPersons={this.state.showPersons}/>
           {/* {
             this.state.showPersons ? 
             <div>
@@ -186,9 +192,11 @@ class App extends PureComponent { // this component responsible that some html c
           }
 
           {
-            // or
+            // or AuthContext.Provider being a context component and provider means we are providing something from this component to another(all person child component) and in other component we use consumer
           }
-          {persons}
+          <AuthContext.Provider value={this.state.authenticated}> 
+            {persons}
+          </AuthContext.Provider>
         </div>
       </StyleRoot>
       // this click is just a click named property passing the switchNameHandler to person component dynamically like name and age
